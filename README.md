@@ -23,6 +23,25 @@ Show browser UI
 SHOW_BROWSER=1 glitch-deploy
 ```
 
+## Deploy from CI
+
+`glitch-deploy` can be run as part of your continious integration, for example
+using [Travis CI](https://travis-ci.org/).
+
+You have to set the following environment variables
+
+- `GITHUB_USERNAME`
+- `GITHUB_PASSWORD`
+- `GITHUB_REPO` _(e.g. `octocat/Hello-World`)_
+- `GLITCH_DOMAIN` _(the name of your Glitch app)_
+
+It’s recommended to create a separate GitHub user account for the deployment to
+keep your own account’s credentials safe. If the given Glitch app already exists
+then make sure the account is invited as collaborator. If the repository is
+private you have to invite the account as collaborator on GitHub, too.
+
+Happy auto-deploying to Glitch :)
+
 ## How it works
 
 `glitch-deploy` is using [puppeteer](https://github.com/GoogleChrome/puppeteer)
