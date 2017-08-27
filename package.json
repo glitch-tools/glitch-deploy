@@ -1,0 +1,40 @@
+{
+  "name": "glitch-deploy",
+  "version": "1.0.0",
+  "description": "CLI tool to deploy a GitHub repository to glitch.com",
+  "bin": {
+    "glitch-deploy": "bin/glitch-deploy.js"
+  },
+  "scripts": {
+    "start": "node bin/glitch-deploy",
+    "test": "standard"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gr2m/glitch-deploy.git"
+  },
+  "keywords": [
+    "glitch",
+    "cli",
+    "deploy"
+  ],
+  "author": "Gregor Martynus (https://twitter.com/gr2m)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/gr2m/glitch-deploy/issues"
+  },
+  "homepage": "https://github.com/gr2m/glitch-deploy#readme",
+  "dependencies": {
+    "axios": "^0.16.2",
+    "debug": "^3.0.1",
+    "github-url-from-git": "^1.5.0",
+    "github-username-regex": "^1.0.0",
+    "inquirer": "^3.2.2",
+    "keytar": "^4.0.4",
+    "lodash": "^4.17.4",
+    "puppeteer": "^0.10.1"
+  },
+  "devDependencies": {
+    "standard": "^10.0.3"
+  }
+}
