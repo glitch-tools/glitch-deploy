@@ -28,15 +28,18 @@
   "dependencies": {
     "axios": "^0.16.2",
     "debug": "^3.0.1",
+    "envalid": "^4.0.0",
     "github-url-from-git": "^1.5.0",
     "github-username-regex": "^1.0.0",
     "inquirer": "^3.2.2",
-    "keytar": "^4.0.4",
     "lodash": "^4.17.4",
     "puppeteer": "^0.10.1"
   },
   "devDependencies": {
     "standard": "^10.0.3",
     "semantic-release": "^7.0.2"
+  },
+  "optionalDependencies": {
+    "keytar": "^4.0.4"
   }
 }
