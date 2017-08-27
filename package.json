@@ -1,17 +1,18 @@
 {
   "name": "glitch-deploy",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "CLI tool to deploy a GitHub repository to glitch.com",
   "bin": {
     "glitch-deploy": "bin/glitch-deploy.js"
   },
   "scripts": {
     "start": "node bin/glitch-deploy",
-    "test": "standard"
+    "test": "standard",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gr2m/glitch-deploy.git"
+    "url": "https://github.com/gr2m/glitch-deploy.git"
   },
   "keywords": [
     "glitch",
@@ -35,6 +36,7 @@
     "puppeteer": "^0.10.1"
   },
   "devDependencies": {
-    "standard": "^10.0.3"
+    "standard": "^10.0.3",
+    "semantic-release": "^7.0.2"
   }
 }
