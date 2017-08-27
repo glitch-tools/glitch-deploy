@@ -1,10 +1,12 @@
 language: node_js
 notifications:
   email: false
+addons:
+  apt:
+    packages:
+      - libsecret-1-dev
 node_js:
   - 8
-  - 6
-  - 4
 before_script:
   - npm prune
 after_success:
