@@ -14,13 +14,13 @@ npx glitch-deploy
 Enable debug logs
 
 ```
-DEBUG=glitch-deploy* glitch-deploy
+DEBUG=glitch-deploy* npx glitch-deploy
 ```
 
 Show browser UI
 
 ```
-SHOW_BROWSER=1 glitch-deploy
+SHOW_BROWSER=1 npx glitch-deploy
 ```
 
 ## Deploy from CI
