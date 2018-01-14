@@ -1,5 +1,7 @@
 # glitch-deploy
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/glitch-tools/glitch-deploy.svg)](https://greenkeeper.io/)
+
 > CLI tool to deploy a GitHub repository to glitch.com
 
 ![Glitch Deploy Screencast](/assets/glitch-deploy-screencast.gif?raw=true)
