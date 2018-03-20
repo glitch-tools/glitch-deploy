@@ -36,7 +36,7 @@ const importGitHubRepo = require('../lib/import-github-repo')
   })
 
   state.page = await state.browser.newPage()
-  await state.page.goto('https://glitch.com', {waitUntil: 'networkidle'})
+  await state.page.goto('https://glitch.com')
   debug('glitch.com loaded')
 
   // click on login with GitHub
@@ -52,10 +52,8 @@ const importGitHubRepo = require('../lib/import-github-repo')
   const githubCredentials = await getGithubCredentials(state)
   state.githubUsername = githubCredentials.username
 
-  await state.page.focus('[name=login]')
-  await state.page.type(githubCredentials.username)
-  await state.page.focus('[name=password]')
-  await state.page.type(githubCredentials.password)
+  await state.page.type('[name=login]', githubCredentials.username)
+  await state.page.type('[name=password]', githubCredentials.password)
   await state.page.click('[type=submit]')
   await state.page.waitForNavigation()
 
@@ -87,8 +85,12 @@ const importGitHubRepo = require('../lib/import-github-repo')
   }
 
   debug(`Opening https://glitch.com/edit/#!/${glitchInfo.appName}`)
-  await state.page.goto(`https://glitch.com/edit/#!/${glitchInfo.appName}`, {waitUntil: 'networkidle'})
-  await state.page.waitFor(() => /\?path=/.test(window.location.hash))
+  await state.page.goto(`https://glitch.com/edit/#!/${glitchInfo.appName}`)
+  debug(`Editor is loading`)
+  // await state.page.waitForSelector('.project-loader.hidden')
+  await state.page.waitFor(() => {
+    return !!document.querySelector('.project-loader.hidden')
+  })
   debug(`${glitchInfo.appName} opened`)
 
   await authorizeGithubRepoAccess(state)
@@ -103,7 +105,7 @@ const importGitHubRepo = require('../lib/import-github-repo')
   await state.page.waitForSelector('.status.success')
 
   debug(`Opening https://${glitchApp.domain}.glitch.me ...`)
-  await state.page.goto(`https://${glitchApp.domain}.glitch.me`, {waitUntil: 'networkidle'})
+  await state.page.goto(`https://${glitchApp.domain}.glitch.me`)
 
   console.log(`${glitchInfo.repoName} deployed to https://${glitchApp.domain}.glitch.me`)
   state.browser.close()
