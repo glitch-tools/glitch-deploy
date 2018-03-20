@@ -25,7 +25,8 @@ const importGitHubRepo = require('../lib/import-github-repo')
     defaults: getPackageDefaults(),
     browser: await puppeteer.launch({
       // https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#puppeteerlaunchoptions
-      headless: !process.env.SHOW_BROWSER
+      headless: !process.env.SHOW_BROWSER,
+      args: process.env.CI ? ['--no-sandbox', '--disable-setuid-sandbox'] : undefined
     })
   }
 
