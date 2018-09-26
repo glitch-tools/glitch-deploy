@@ -3,7 +3,7 @@
 const debug = require('debug')('glitch-deploy')
 
 if (process.env.CI) {
-  debug('Running on CI, checking for environment varibales')
+  debug('Running on CI, checking for environment variables')
   require('../lib/env.js')
 }
 
@@ -18,7 +18,6 @@ const getGlitchNameAndRepo = require('../lib/get-glitch-name-and-repo')
 const getPackageDefaults = require('../lib/get-package-defaults')
 const handleGithub2faAuthentication = require('../lib/handle-github-2fa-authentication')
 const importGitHubRepo = require('../lib/import-github-repo')
-
 ;(async () => {
   const state = {
     debug: debug,
@@ -26,7 +25,9 @@ const importGitHubRepo = require('../lib/import-github-repo')
     browser: await puppeteer.launch({
       // https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#puppeteerlaunchoptions
       headless: !process.env.SHOW_BROWSER,
-      args: process.env.CI ? ['--no-sandbox', '--disable-setuid-sandbox'] : undefined
+      args: process.env.CI
+        ? ['--no-sandbox', '--disable-setuid-sandbox']
+        : undefined
     })
   }
 
@@ -44,7 +45,11 @@ const importGitHubRepo = require('../lib/import-github-repo')
   // page.click does not work with given selector
   // await state.page.click('[href^="https://github.com/login/oauth/authorize"]')
   await state.page.evaluate(() => {
-    document.querySelector('[href^="https://github.com/login/oauth/authorize"]').click()
+    const buttons = [...document.querySelectorAll('button')]
+    buttons.find((button) => button.textContent === 'Sign in').click()
+    document
+      .querySelector('[href^="https://github.com/login/oauth/authorize"]')
+      .click()
   })
 
   debug('Login with GitHub')
@@ -73,7 +78,9 @@ const importGitHubRepo = require('../lib/import-github-repo')
     return state.browser.close()
   }
 
-  const glitchAuthToken = await state.page.evaluate(() => JSON.parse(window.localStorage.getItem('cachedUser')).persistentToken)
+  const glitchAuthToken = await state.page.evaluate(
+    () => JSON.parse(window.localStorage.getItem('cachedUser')).persistentToken
+  )
   debug(`glitchAuthToken: ${glitchAuthToken.substr(0, 5)}***`)
 
   if (glitchApp === null && glitchInfo.doCreate) {
@@ -108,6 +115,8 @@ const importGitHubRepo = require('../lib/import-github-repo')
   debug(`Opening https://${glitchApp.domain}.glitch.me ...`)
   await state.page.goto(`https://${glitchApp.domain}.glitch.me`)
 
-  console.log(`${glitchInfo.repoName} deployed to https://${glitchApp.domain}.glitch.me`)
+  console.log(
+    `${glitchInfo.repoName} deployed to https://${glitchApp.domain}.glitch.me`
+  )
   state.browser.close()
 })()
