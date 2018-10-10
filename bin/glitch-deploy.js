@@ -95,9 +95,9 @@ const importGitHubRepo = require('../lib/import-github-repo')
   debug(`Opening https://glitch.com/edit/#!/${glitchInfo.appName}`)
   await state.page.goto(`https://glitch.com/edit/#!/${glitchInfo.appName}`)
   debug(`Editor is loading`)
-  // await state.page.waitForSelector('.project-loader.hidden')
+
   await state.page.waitFor(() => {
-    return !!document.querySelector('.project-loader.hidden')
+    return !!document.querySelector('.project-loading.hidden')
   })
   debug(`${glitchInfo.appName} opened`)
 
